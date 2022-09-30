@@ -9,7 +9,6 @@ package Employee;
  * @author admin
  */
 public class Profile {
-    
     private String Name;
     private int EmployeeID;
     private int Age;
@@ -109,5 +108,8 @@ public class Profile {
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
-    
+    @Override
+    public String toString(){
+        return Name;
+    }
 }

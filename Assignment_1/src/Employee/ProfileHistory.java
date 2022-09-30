@@ -26,5 +26,18 @@ public class ProfileHistory {
     public void setHistory(ArrayList<Profile> history) {
         this.history = history;
     }
-    
+    public Profile addNewProfile(){
+        
+        Profile newProfile = new Profile();
+        history.add(newProfile);
+        return newProfile;
+        
+    }
+    public void deleteProfile(Profile pro) {
+        history.remove(pro);
+    }
+
+    public String getPhoto() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
