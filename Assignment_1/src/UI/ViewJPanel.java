@@ -70,8 +70,6 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtLevel = new javax.swing.JTextField();
         lblDate = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
-        lblPhoto = new javax.swing.JLabel();
-        btnPhoto = new javax.swing.JButton();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -193,16 +191,6 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblPhoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPhoto.setText("Photo:");
-
-        btnPhoto.setText("Select Photo");
-        btnPhoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPhotoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,11 +203,6 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(lblPhoto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPhoto))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(303, 303, 303)
                         .addComponent(btnSave))
@@ -278,18 +261,11 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
                     .addComponent(btnDelete))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
-                        .addComponent(lblPhoto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114)
-                        .addComponent(btnPhoto)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(55, 55, 55)
+                .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118)
                 .addComponent(btnSave)
-                .addContainerGap())
+                .addGap(31, 31, 31))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -351,17 +327,36 @@ public class ViewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = tblProfile.getSelectedRow();
         if(selectedRowIndex<0){
-            JOptionPane.showMessageDialog(this,"Please select a record to delete.");
+            JOptionPane.showMessageDialog(this,"Please select a record to delete");
             return;
         }
         DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
         Profile selectedProfile = (Profile) Employee.getValueAt(selectedRowIndex, 0);
         selectedProfile.setName(txtName.getText());
         selectedProfile.setEmployeeID(Integer.parseInt(txtID.getText()));
+        selectedProfile.setAge(Integer.parseInt(txtAge.getText()));
+        selectedProfile.setGender(txtGender.getText());
+        selectedProfile.setStartDate(txtDate.getText());
+        selectedProfile.setLevel(txtLevel.getText());
+        selectedProfile.setTeamInfo(txtTeamInfo.getText());
+        selectedProfile.setPositionTitle(txtPositionTitle.getText());
+        selectedProfile.setPhoneNumber(Long.parseLong(txtPhoneNumber.getText()));
+        selectedProfile.setEmailAddress(txtEmailAddress.getText());
         
         JOptionPane.showMessageDialog(this,"Employee details have been updated successfully!");
         populateTable();
-
+        
+        txtName.setText("");
+        txtID.setText("");
+        txtAge.setText("");
+        txtGender.setText("");
+        txtDate.setText("");
+        txtLevel.setText("");
+        txtTeamInfo.setText("");
+        txtPositionTitle.setText("");
+        txtPhoneNumber.setText("");
+        txtEmailAddress.setText("");
+        
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -448,24 +443,10 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhotoActionPerformed
-        // TODO add your handling code here:
-        PhotoFileChooser.setCurrentDirectory(new File("/Users/admin/Documents/ProfilePics"));
-        int Value = PhotoFileChooser.showOpenDialog(this);
-        if(Value==JFileChooser.APPROVE_OPTION){
-              txtPhoto.setText( PhotoFileChooser.getSelectedFile().toString()); 
-              
-        }
-        else{
-            txtPhoto.setText("No File Selected");
-        }
-    }//GEN-LAST:event_btnPhotoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnPhoto;
     private javax.swing.JButton btnSave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAge;
@@ -477,7 +458,6 @@ public class ViewJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblLevel;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPhoneNumber;
-    private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblPositionTitle;
     private javax.swing.JLabel lblTeamInfo;
     private javax.swing.JLabel lblTitle;
