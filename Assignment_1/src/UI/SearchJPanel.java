@@ -398,34 +398,187 @@ public class SearchJPanel extends javax.swing.JPanel {
 
     private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getAge()==Integer.parseInt(txtAge.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtAge.setText("");
     }//GEN-LAST:event_txtAgeActionPerformed
 
     private void txtGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGenderActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getGender().equals(txtGender.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtGender.setText("");
     }//GEN-LAST:event_txtGenderActionPerformed
 
     private void txtPositionTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPositionTitleActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getPositionTitle().equals(txtPositionTitle.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtPositionTitle.setText("");
+        
     }//GEN-LAST:event_txtPositionTitleActionPerformed
 
     private void txtStartDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartDateActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getStartDate().equals(txtStartDate.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtStartDate.setText("");
     }//GEN-LAST:event_txtStartDateActionPerformed
 
     private void txtLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLevelActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getLevel().equals(txtLevel.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtLevel.setText("");
     }//GEN-LAST:event_txtLevelActionPerformed
 
     private void txtTeamInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTeamInfoActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getTeamInfo().equals(txtTeamInfo.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtTeamInfo.setText("");
     }//GEN-LAST:event_txtTeamInfoActionPerformed
 
     private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getPhoneNumber()==Long.parseLong(txtPhoneNumber.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtPhoneNumber.setText("");
     }//GEN-LAST:event_txtPhoneNumberActionPerformed
 
     private void txtEmailAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailAddressActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);        
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+                if(pro.getEmailAddress().equals(txtEmailAddress.getText())){
+                    Employee.addRow(row);   
+                }
+        } 
+        txtEmailAddress.setText("");
     }//GEN-LAST:event_txtEmailAddressActionPerformed
 
 private void populateTable() {
