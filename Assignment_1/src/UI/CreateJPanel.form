@@ -16,45 +16,53 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
                       <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="453" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblEIDErr" min="-2" pref="206" max="-2" attributes="0"/>
-                          <Component id="lblNameErr" min="-2" pref="227" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="drpdwnGender" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="219" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblNameErr" max="32767" attributes="0"/>
+                                  <Component id="lblEIDErr" alignment="0" pref="76" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblPositionTitleErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblAgeErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPhoneNumberErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblEmailAddressErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblLevelErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblTeamInfoErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblPhotoErr" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblStartDateErr" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblGenderErr" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnPhoto" min="-2" max="-2" attributes="0"/>
-                                  <Component id="drpdwnGender" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="194" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblPhotoErr" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblGenderErr" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPositionTitleErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblTeamInfoErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblLevelErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblStartDateErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAgeErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPhoneNumberErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblEmailAddressErr" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="686" max="-2" attributes="0"/>
+              <EmptySpace min="894" pref="894" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -95,7 +103,7 @@
                       <Component id="txtAge" alignment="0" pref="85" max="32767" attributes="0"/>
                       <Component id="txtPhoto" alignment="0" min="-2" pref="0" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="940" max="32767" attributes="0"/>
+                  <EmptySpace pref="1015" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -105,41 +113,36 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="lblNameErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblEIDErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="lblNameErr" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="lblEIDErr" min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="lblAgeErr" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="lblGenderErr" min="-2" pref="18" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="lblStartDateErr" min="-2" pref="18" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="drpdwnGender" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="lblGenderErr" min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblStartDateErr" min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="drpdwnGender" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblLevelErr" min="-2" pref="24" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="lblTeamInfoErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblPositionTitleErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="lblPhoneNumberErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="lblEmailAddressErr" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="lblPhotoErr" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="btnPhoto" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="135" max="32767" attributes="0"/>
+              <EmptySpace pref="57" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -331,11 +334,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPositionTitleActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblNameErr">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="btnPhoto">
       <Properties>
         <Property name="text" type="java.lang.String" value="Select Photo"/>
@@ -343,11 +341,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPhotoActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblEIDErr">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAgeErr">
       <Properties>
@@ -408,6 +401,10 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNameErr">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblEIDErr">
     </Component>
   </SubComponents>
 </Form>

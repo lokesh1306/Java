@@ -63,9 +63,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         txtDate = new javax.swing.JTextField();
         txtLevel = new javax.swing.JTextField();
         txtPositionTitle = new javax.swing.JTextField();
-        lblNameErr = new javax.swing.JLabel();
         btnPhoto = new javax.swing.JButton();
-        lblEIDErr = new javax.swing.JLabel();
         lblAgeErr = new javax.swing.JLabel();
         lblStartDateErr = new javax.swing.JLabel();
         lblGenderErr = new javax.swing.JLabel();
@@ -76,6 +74,8 @@ public class CreateJPanel extends javax.swing.JPanel {
         lblEmailAddressErr = new javax.swing.JLabel();
         lblPhotoErr = new javax.swing.JLabel();
         drpdwnGender = new javax.swing.JComboBox<>();
+        lblNameErr = new javax.swing.JLabel();
+        lblEIDErr = new javax.swing.JLabel();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,16 +172,12 @@ public class CreateJPanel extends javax.swing.JPanel {
             }
         });
 
-        lblNameErr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         btnPhoto.setText("Select Photo");
         btnPhoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPhotoActionPerformed(evt);
             }
         });
-
-        lblEIDErr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lblAgeErr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -216,30 +212,35 @@ public class CreateJPanel extends javax.swing.JPanel {
                         .addGap(274, 274, 274)
                         .addComponent(btnSave))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(453, 453, 453)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEIDErr, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNameErr, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(182, 182, 182)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(219, 219, 219)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNameErr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEIDErr, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblPositionTitleErr)
+                                            .addComponent(lblAgeErr)
+                                            .addComponent(lblPhoneNumberErr)
+                                            .addComponent(lblEmailAddressErr)
+                                            .addComponent(lblLevelErr)
+                                            .addComponent(lblTeamInfoErr)
+                                            .addComponent(lblPhotoErr))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblStartDateErr)
+                                            .addComponent(lblGenderErr))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnPhoto)
-                                    .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(194, 194, 194)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPhotoErr)
-                                    .addComponent(lblGenderErr)
-                                    .addComponent(lblPositionTitleErr)
-                                    .addComponent(lblTeamInfoErr)
-                                    .addComponent(lblLevelErr)
-                                    .addComponent(lblStartDateErr)
-                                    .addComponent(lblAgeErr)
-                                    .addComponent(lblPhoneNumberErr)
-                                    .addComponent(lblEmailAddressErr)))
-                            .addComponent(lblTitle))))
-                .addGap(686, 686, 686))
+                                    .addComponent(lblTitle))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(894, 894, 894))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(46, 46, 46)
@@ -273,45 +274,42 @@ public class CreateJPanel extends javax.swing.JPanel {
                         .addComponent(txtDate)
                         .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                         .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(940, Short.MAX_VALUE)))
+                    .addContainerGap(1015, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(lblTitle)
+                .addGap(20, 20, 20)
+                .addComponent(lblNameErr)
                 .addGap(18, 18, 18)
-                .addComponent(lblNameErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblEIDErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(lblEIDErr, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblAgeErr)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(lblGenderErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(lblStartDateErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0)
+                .addGap(18, 18, 18)
+                .addComponent(lblGenderErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblStartDateErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblLevelErr, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(lblTeamInfoErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblPositionTitleErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(41, 41, 41)
                 .addComponent(lblPhoneNumberErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblEmailAddressErr, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(24, 24, 24)
                 .addComponent(lblPhotoErr)
-                .addGap(19, 19, 19)
+                .addGap(15, 15, 15)
                 .addComponent(btnPhoto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(91, 91, 91)
                 .addComponent(btnSave)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(57, 57, 57)
