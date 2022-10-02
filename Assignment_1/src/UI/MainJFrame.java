@@ -81,7 +81,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(btnSearch)
                 .addGap(95, 95, 95)
                 .addComponent(btnView)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(668, Short.MAX_VALUE))
         );
 
         SplitPane.setLeftComponent(ControlPanel);
@@ -90,11 +90,11 @@ public class MainJFrame extends javax.swing.JFrame {
         WorkArea.setLayout(WorkAreaLayout);
         WorkAreaLayout.setHorizontalGroup(
             WorkAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 519, Short.MAX_VALUE)
+            .addGap(0, 1169, Short.MAX_VALUE)
         );
         WorkAreaLayout.setVerticalGroup(
             WorkAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 511, Short.MAX_VALUE)
+            .addGap(0, 994, Short.MAX_VALUE)
         );
 
         SplitPane.setRightComponent(WorkArea);
@@ -103,7 +103,7 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SplitPane)
+            .addComponent(SplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

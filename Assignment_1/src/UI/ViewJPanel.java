@@ -357,7 +357,6 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtPhoneNumber.setText("");
         txtEmailAddress.setText("");
         
-        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtEmailAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailAddressActionPerformed
