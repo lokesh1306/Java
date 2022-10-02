@@ -48,7 +48,6 @@ public class SearchJPanel extends javax.swing.JPanel {
         lblEmployeeID = new javax.swing.JLabel();
         lblName1 = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
-        txtGender = new javax.swing.JTextField();
         lblEmployeeID1 = new javax.swing.JLabel();
         txtPositionTitle = new javax.swing.JTextField();
         lblEmployeeID2 = new javax.swing.JLabel();
@@ -62,6 +61,7 @@ public class SearchJPanel extends javax.swing.JPanel {
         txtPhoneNumber = new javax.swing.JTextField();
         txtEmailAddress = new javax.swing.JTextField();
         lblEmployeeID4 = new javax.swing.JLabel();
+        drpdwnGender = new javax.swing.JComboBox<>();
 
         lblSerialNum.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         lblSerialNum.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -131,14 +131,6 @@ public class SearchJPanel extends javax.swing.JPanel {
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAgeActionPerformed(evt);
-            }
-        });
-
-        txtGender.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        txtGender.setPreferredSize(new java.awt.Dimension(180, 30));
-        txtGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGenderActionPerformed(evt);
             }
         });
 
@@ -218,6 +210,13 @@ public class SearchJPanel extends javax.swing.JPanel {
         lblEmployeeID4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblEmployeeID4.setText("Email Address:");
 
+        drpdwnGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Male", "Female", "Other" }));
+        drpdwnGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpdwnGenderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -268,9 +267,9 @@ public class SearchJPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lblEmployeeID2)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPositionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtPositionTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(drpdwnGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(443, 443, 443)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -309,7 +308,7 @@ public class SearchJPanel extends javax.swing.JPanel {
                     .addComponent(lblName1)
                     .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmployeeID1)
-                    .addComponent(txtGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,52 +389,6 @@ public class SearchJPanel extends javax.swing.JPanel {
         } 
         txtEmployeeID.setText("");
     }//GEN-LAST:event_txtEmployeeIDActionPerformed
-
-    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
-        Employee.setRowCount(0);        
-        for(Profile pro : history.getHistory()){
-            Object[] row = new Object[10];
-            row[0] = pro.getName();
-            row[1] = pro.getEmployeeID();
-            row[2] = pro.getAge();
-            row[3] = pro.getGender();
-            row[4] = pro.getStartDate();
-            row[5] = pro.getLevel();
-            row[6] = pro.getTeamInfo();
-            row[7] = pro.getPositionTitle();
-            row[8] = pro.getPhoneNumber();
-            row[9] = pro.getEmailAddress();
-                if(pro.getAge()==Integer.parseInt(txtAge.getText())){
-                    Employee.addRow(row);   
-                }
-        } 
-        txtAge.setText("");
-    }//GEN-LAST:event_txtAgeActionPerformed
-
-    private void txtGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGenderActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
-        Employee.setRowCount(0);        
-        for(Profile pro : history.getHistory()){
-            Object[] row = new Object[10];
-            row[0] = pro.getName();
-            row[1] = pro.getEmployeeID();
-            row[2] = pro.getAge();
-            row[3] = pro.getGender();
-            row[4] = pro.getStartDate();
-            row[5] = pro.getLevel();
-            row[6] = pro.getTeamInfo();
-            row[7] = pro.getPositionTitle();
-            row[8] = pro.getPhoneNumber();
-            row[9] = pro.getEmailAddress();
-                if(pro.getGender().equals(txtGender.getText())){
-                    Employee.addRow(row);   
-                }
-        } 
-        txtGender.setText("");
-    }//GEN-LAST:event_txtGenderActionPerformed
 
     private void txtPositionTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPositionTitleActionPerformed
         // TODO add your handling code here:
@@ -576,6 +529,99 @@ public class SearchJPanel extends javax.swing.JPanel {
         txtEmailAddress.setText("");
     }//GEN-LAST:event_txtEmailAddressActionPerformed
 
+    private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+        Employee.setRowCount(0);
+        for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+            if(pro.getAge()==Integer.parseInt(txtAge.getText())){
+                Employee.addRow(row);
+            }
+        }
+        txtAge.setText("");
+    }//GEN-LAST:event_txtAgeActionPerformed
+
+    private void drpdwnGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpdwnGenderActionPerformed
+        // TODO add your handling code here:
+        if(drpdwnGender.getSelectedItem()=="Male"){
+            DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+            Employee.setRowCount(0);
+
+            for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+            if(pro.getGender()=="Male"){
+                Employee.addRow(row);
+            }
+         }
+            drpdwnGender.setSelectedIndex(0);
+        }
+        if(drpdwnGender.getSelectedItem()=="Female"){
+            DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+            Employee.setRowCount(0);
+
+            for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+            if(pro.getGender()=="Female"){
+                Employee.addRow(row);
+            }
+            }
+            drpdwnGender.setSelectedIndex(0);
+        }
+        if(drpdwnGender.getSelectedItem()=="Other"){
+            DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
+            Employee.setRowCount(0);
+
+            for(Profile pro : history.getHistory()){
+            Object[] row = new Object[10];
+            row[0] = pro.getName();
+            row[1] = pro.getEmployeeID();
+            row[2] = pro.getAge();
+            row[3] = pro.getGender();
+            row[4] = pro.getStartDate();
+            row[5] = pro.getLevel();
+            row[6] = pro.getTeamInfo();
+            row[7] = pro.getPositionTitle();
+            row[8] = pro.getPhoneNumber();
+            row[9] = pro.getEmailAddress();
+            if(pro.getGender()=="Other"){
+                Employee.addRow(row);
+            }
+            }
+            drpdwnGender.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_drpdwnGenderActionPerformed
+
 private void populateTable() {
         DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
         Employee.setRowCount(0);
@@ -597,6 +643,7 @@ private void populateTable() {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListAllProfiles;
+    private javax.swing.JComboBox<String> drpdwnGender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEmployeeID;
@@ -615,7 +662,6 @@ private void populateTable() {
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtEmailAddress;
     private javax.swing.JTextField txtEmployeeID;
-    private javax.swing.JTextField txtGender;
     private javax.swing.JTextField txtLevel;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;

@@ -58,7 +58,6 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtTeamInfo = new javax.swing.JTextField();
         lblContactInfo = new javax.swing.JLabel();
         lblTeamInfo = new javax.swing.JLabel();
-        txtGender = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
         txtAge = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
@@ -70,6 +69,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtLevel = new javax.swing.JTextField();
         lblDate = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
+        drpdwnGender = new javax.swing.JComboBox<>();
 
         lblTitle.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -141,12 +141,6 @@ public class ViewJPanel extends javax.swing.JPanel {
 
         lblTeamInfo.setText("Team Info:");
 
-        txtGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGenderActionPerformed(evt);
-            }
-        });
-
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
@@ -191,6 +185,13 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         });
 
+        drpdwnGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Male", "Female", "Other" }));
+        drpdwnGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpdwnGenderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,10 +206,13 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(303, 303, 303)
-                        .addComponent(btnSave))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(580, 580, 580)
-                        .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSave)
+                        .addGap(205, 205, 205))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)))
+                .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
@@ -248,7 +252,6 @@ public class ViewJPanel extends javax.swing.JPanel {
                         .addComponent(txtName)
                         .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                         .addComponent(txtDate)
-                        .addComponent(txtGender)
                         .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                     .addContainerGap(482, Short.MAX_VALUE)))
         );
@@ -261,8 +264,13 @@ public class ViewJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
                     .addComponent(btnDelete))
-                .addGap(55, 55, 55)
-                .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(txtPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(drpdwnGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(118, 118, 118)
                 .addComponent(btnSave)
                 .addGap(31, 31, 31))
@@ -286,10 +294,8 @@ public class ViewJPanel extends javax.swing.JPanel {
                         .addComponent(lblAge, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblGender, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(7, 7, 7)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,7 +341,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         selectedProfile.setName(txtName.getText());
         selectedProfile.setEmployeeID(Integer.parseInt(txtID.getText()));
         selectedProfile.setAge(Integer.parseInt(txtAge.getText()));
-        selectedProfile.setGender(txtGender.getText());
+        selectedProfile.setGender(String.valueOf(drpdwnGender.getSelectedItem()));
         selectedProfile.setStartDate(txtDate.getText());
         selectedProfile.setLevel(txtLevel.getText());
         selectedProfile.setTeamInfo(txtTeamInfo.getText());
@@ -349,7 +355,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtName.setText("");
         txtID.setText("");
         txtAge.setText("");
-        txtGender.setText("");
+        drpdwnGender.setSelectedIndex(0);
         txtDate.setText("");
         txtLevel.setText("");
         txtTeamInfo.setText("");
@@ -366,10 +372,6 @@ public class ViewJPanel extends javax.swing.JPanel {
     private void txtTeamInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTeamInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTeamInfoActionPerformed
-
-    private void txtGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtGenderActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
@@ -421,7 +423,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtName.setText(selectedProfile.getName());
         txtID.setText(String.valueOf(selectedProfile.getEmployeeID()));
         txtAge.setText(String.valueOf(selectedProfile.getAge()));
-        txtGender.setText(selectedProfile.getGender());
+        drpdwnGender.setSelectedItem(selectedProfile.getGender());
         txtDate.setText(selectedProfile.getStartDate());
         txtLevel.setText(selectedProfile.getLevel());
         txtTeamInfo.setText(selectedProfile.getTeamInfo());
@@ -442,11 +444,16 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void drpdwnGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpdwnGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpdwnGenderActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> drpdwnGender;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblContactInfo;
@@ -464,7 +471,6 @@ public class ViewJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtEmailAddress;
-    private javax.swing.JTextField txtGender;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLevel;
     private javax.swing.JTextField txtName;
