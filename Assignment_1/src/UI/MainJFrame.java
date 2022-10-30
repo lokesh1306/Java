@@ -54,7 +54,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        btnView.setText("View Profile");
+        btnView.setText("View/Delete Profile");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewActionPerformed(evt);

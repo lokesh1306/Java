@@ -330,7 +330,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRowIndex = tblProfile.getSelectedRow();
         if(selectedRowIndex<0){
-            JOptionPane.showMessageDialog(this,"Please select a record to delete");
+            JOptionPane.showMessageDialog(this,"Please select a record to edit/delete");
             return;
         }
         DefaultTableModel Employee = (DefaultTableModel) tblProfile.getModel();
@@ -359,7 +359,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText("");
         txtPhoneNumber.setText("");
         txtEmailAddress.setText("");
-        txtPhoto.setText(null);
+        txtPhoto.setIcon(null);
         
     }//GEN-LAST:event_btnSaveActionPerformed
 

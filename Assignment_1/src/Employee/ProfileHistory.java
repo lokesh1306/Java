@@ -36,8 +36,4 @@ public class ProfileHistory {
     public void deleteProfile(Profile pro) {
         history.remove(pro);
     }
-
-    public String getPhoto() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
