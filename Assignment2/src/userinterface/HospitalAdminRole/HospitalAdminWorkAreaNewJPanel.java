@@ -67,6 +67,7 @@ public class HospitalAdminWorkAreaNewJPanel extends javax.swing.JPanel {
         enterpriseLabel.setText("Welcome ");
 
         setBackground(new java.awt.Color(153, 204, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNewDoctor.setText("Add Doctor");
         btnNewDoctor.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +75,7 @@ public class HospitalAdminWorkAreaNewJPanel extends javax.swing.JPanel {
                 btnNewDoctorActionPerformed(evt);
             }
         });
+        add(btnNewDoctor, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 90, 198, -1));
 
         btnManageDoctors.setText("Manage Doctors");
         btnManageDoctors.addActionListener(new java.awt.event.ActionListener() {
@@ -81,42 +83,15 @@ public class HospitalAdminWorkAreaNewJPanel extends javax.swing.JPanel {
                 btnManageDoctorsActionPerformed(evt);
             }
         });
+        add(btnManageDoctors, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 131, 198, -1));
 
         valueLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         valueLabel1.setText("<value>");
+        add(valueLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 33, 158, 26));
 
         enterpriseLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel1.setText("Welcome ");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(valueLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnManageDoctors, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                        .addComponent(btnNewDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(230, 230, 230))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valueLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(btnNewDoctor)
-                .addGap(18, 18, 18)
-                .addComponent(btnManageDoctors)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
+        add(enterpriseLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 31, 99, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewDoctorActionPerformed
