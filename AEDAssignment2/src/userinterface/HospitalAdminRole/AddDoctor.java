@@ -5,9 +5,9 @@
  */
 package userinterface.HospitalAdminRole;
 
-import userinterface.SystemAdminWorkArea.*;
 import Business.CommunityAdmin.CommunityAdmin;
 import Business.Customer.Customer;
+import Business.Customer.Hospital;
 import Business.Customer.Patients;
 import Business.DeliveryMan.DeliveryMan;
 import Business.Doctor.Doctor;
@@ -27,6 +27,8 @@ import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -81,19 +83,19 @@ public class AddDoctor extends javax.swing.JPanel {
         txtPhoneNumber = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        CbxCommunity = new javax.swing.JComboBox<>();
-        CbxCity = new javax.swing.JComboBox<>();
-        lblGender = new javax.swing.JLabel();
         CbxGender = new javax.swing.JComboBox<>();
+        CbxCity = new javax.swing.JComboBox<>();
         txtAge = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        CbxCommunity = new javax.swing.JComboBox<>();
 
         jPasswordField1.setText("jPasswordField1");
 
         setBackground(new java.awt.Color(204, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnGoBack.setText("<< Back");
+        btnGoBack.setText("Back");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGoBackActionPerformed(evt);
@@ -123,9 +125,9 @@ public class AddDoctor extends javax.swing.JPanel {
         jLabel6.setText("Role :");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 410, -1, -1));
 
-        jLabel7.setText("Hospital Name( only if role is doctor) :");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 445, -1, -1));
-        add(txtHospitalName, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 442, 144, -1));
+        jLabel7.setText("Hospital Name (doctor/Hospital Admin) :");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+        add(txtHospitalName, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 442, 124, -1));
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -135,15 +137,15 @@ public class AddDoctor extends javax.swing.JPanel {
         });
         add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 500, 77, -1));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Doctor" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Select --", "Patient", "Doctor", "Community Admin", "Hospital Admin", "System Admin" }));
         comboRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboRoleActionPerformed(evt);
             }
         });
-        add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 407, 144, -1));
-        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 135, 144, -1));
-        add(txtPasswordConfirmation, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 176, 144, -1));
+        add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 407, 124, -1));
+        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 135, 124, -1));
+        add(txtPasswordConfirmation, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 176, 124, -1));
 
         jLabel8.setText("House No :");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, -1, -1));
@@ -159,40 +161,33 @@ public class AddDoctor extends javax.swing.JPanel {
         add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 279, 124, -1));
         add(txtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 372, 124, -1));
 
-        jLabel10.setText("Community");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(201, 311, -1, -1));
+        jLabel10.setText("Community :");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, -1, -1));
 
-        jLabel11.setText("City");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 346, -1, -1));
+        jLabel11.setText("City :");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
 
-        CbxCommunity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mission Hill", "Jamaica Plain", "Huntington Avenue", "Bolyston" }));
-        add(CbxCommunity, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 308, -1, -1));
+        CbxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select --", "Male", "Female" }));
+        add(CbxGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 124, -1));
 
-        CbxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "New York" }));
+        CbxCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select --", "Boston", "New York" }));
         CbxCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CbxCityActionPerformed(evt);
             }
         });
-        add(CbxCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 343, -1, -1));
-
-        lblGender.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        lblGender.setText("Gender:");
-        add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 217, -1, -1));
-
-        CbxGender.setBackground(new java.awt.Color(204, 204, 204));
-        CbxGender.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        CbxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--", "Female", "Male" }));
-        CbxGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbxGenderActionPerformed(evt);
-            }
-        });
-        add(CbxGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 150, -1));
-        add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 140, -1));
+        add(CbxCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 343, 124, -1));
+        add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 124, -1));
 
         jLabel12.setText("Age :");
         add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, -1, -1));
+
+        jLabel13.setText("Gender :");
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 60, -1));
+
+        CbxCommunity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select --", "Mission Hill", "Jamaica Plain", "Huntington Avenue", "Bolyston" }));
+        CbxCommunity.setPreferredSize(new java.awt.Dimension(124, 23));
+        add(CbxCommunity, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 308, 124, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
@@ -202,26 +197,158 @@ public class AddDoctor extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
         Component[] comps = this.userProcessContainer.getComponents();
         for(Component comp : comps){
-            if(comp instanceof SystemAdminWorkAreaJPanel){
-                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel= (SystemAdminWorkAreaJPanel) comp;
-                systemAdminWorkAreaJPanel.populateTree();
+            if(comp instanceof HospitalAdminWorkAreaNewJPanel){
+                HospitalAdminWorkAreaNewJPanel hospitalAdminWorkAreaNewJPanel = (HospitalAdminWorkAreaNewJPanel) comp;
+                hospitalAdminWorkAreaNewJPanel.populateTree();
             }
         }
     }//GEN-LAST:event_btnGoBackActionPerformed
-
+    boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         UserAccountDirectory usersList = this.system.getUserAccountDirectory();
         String role = (String) comboRole.getSelectedItem();
         Patient patient = new Patient(txtName.getText());
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        String passreg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+//        At least one upper case English letter, (?=.*?[A-Z])
+//        At least one lower case English letter, (?=.*?[a-z])
+//        At least one digit, (?=.*?[0-9])
+//        At least one special character, (?=.*?[#?!@$%^&*-])
+//        Minimum eight in length .{8,} (with the anchors)
         
-        boolean userDoNotExists = true;
+        String Name = txtName.getText();
+        String UserName = txtUsername.getText();
+        String password = txtPassword.getText();
+        String confirmPassword = txtPasswordConfirmation.getText();
+        String Gender = (String)CbxGender.getSelectedItem();
+        String Hnum = txtAddress.getText();
+        String comm = (String)CbxCommunity.getSelectedItem();
+        String city = (String)CbxCity.getSelectedItem();
+        int Age;
+        String Phone = txtPhoneNumber.getText();
+        String Hsptname = txtHospitalName.getText();
+        
+        if(!isValidAttribute(Name,Namereg)){
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(UserName,UserNamereg)){
+            JOptionPane.showMessageDialog(this, "Invalid User Name input:" + UserName, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(password,passreg)){
+            JOptionPane.showMessageDialog(this, "Invalid password", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!password.equals(confirmPassword )){
+            JOptionPane.showMessageDialog(this, "Password mismatch","Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxGender.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Gender" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(Hnum,Hnumreg)){
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCommunity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Community" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select City" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(comboRole.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select user Role " ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        try{
+          Age = Integer.parseInt(txtAge.getText());
+
+        }catch (NumberFormatException ex){
+
+             
+             JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(Age < 0){
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(!isValidAttribute(Phone,phonereg)){
+           JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if("Doctor".equals(role) || "Hospital Admin".equals(role)){
+            if(Hsptname.length() == 0){
+                JOptionPane.showMessageDialog(this, "Hospital cannot be empty for doctor field" , "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            else{
+                boolean e = false;
+                for(Hospital H:system.getHospitalDirectory().returnHospitalDetails()){
+                if(H.getName().equals(Hsptname)){
+                    e = true;
+                    break;
+                }
+               
+                }
+                if(!e){
+                    JOptionPane.showMessageDialog(this, "Given Hospital does not exist in the directory" , "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        else{
+            if(Hsptname.length() > 0){
+                JOptionPane.showMessageDialog(this, "Hospital cannot be given for roles other than doctor", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        boolean usernameExists = false;
         ArrayList<UserAccount> users = usersList.getUserAccountList();
         for(UserAccount ua : users)
         {
-            if(ua.getUsername().equals(txtUsername.getText()))
-                userDoNotExists = false;
+            if(ua.getUsername().equals(txtUsername.getText())){
+                usernameExists = true;
+            }
+                
+             
         }
+        if(usernameExists){
+            JOptionPane.showMessageDialog(this, "user name already exists in the directory", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+        }
+        
         if(txtPassword.getText().equals(txtPasswordConfirmation.getText()))
         {
             if(role.equals("Patient")){
@@ -238,7 +365,7 @@ public class AddDoctor extends javax.swing.JPanel {
                 System.out.println(patients.getName());
                 
                 system.getPatientsDirectory().addPatients(patients);
-                JOptionPane.showMessageDialog(this, "Added the user successfully");
+                JOptionPane.showMessageDialog(this, "Added the patient successfully");
                 this.clearText();
             }
             else if(role.equals("Doctor")){
@@ -251,8 +378,23 @@ public class AddDoctor extends javax.swing.JPanel {
                 doctor.setStatus("Available");
                 doctor.setHospital(txtHospitalName.getText());
                 doctor.setName(txtName.getText());
+                doctor.setCommunity((String)CbxCommunity.getSelectedItem());
+                doctor.setCity((String)CbxCity.getSelectedItem());
+                doctor.setGender((String)CbxGender.getSelectedItem());
+                doctor.setAge(Integer.parseInt(txtAge.getText()));
                 system.getDoctorDirectory().addDoctor(doctor);
-                JOptionPane.showMessageDialog(this, "Added the Dcotor successfully");
+                JOptionPane.showMessageDialog(this, "Added the doctor successfully");
+                System.out.println(system.getHospitalDirectory().returnHospitalDetails());
+                for(Hospital H: system.getHospitalDirectory().returnHospitalDetails()){
+                    System.out.println(H.getName());
+                    System.out.println(txtHospitalName.getText());
+                    System.out.println(2000);
+                    if(H.getName().equals(txtHospitalName.getText())){
+                    H.addDoctor(doctor);
+                    System.out.println(1000);
+                    break;
+                }
+                }
                 this.clearText();
             }
             else if(role.equals("Community Admin")){
@@ -264,8 +406,11 @@ public class AddDoctor extends javax.swing.JPanel {
                 communityAdmin.setPhoneNumber(txtPhoneNumber.getText()); 
                 communityAdmin.setName(txtName.getText());
                 communityAdmin.setCommunity((String)CbxCommunity.getSelectedItem());
+                communityAdmin.setCity((String)CbxCity.getSelectedItem());
+                communityAdmin.setGender((String)CbxGender.getSelectedItem());
+                communityAdmin.setAge(Integer.parseInt(txtAge.getText()));
                 system.getCommunityAdminDirectory().addCommunityAdmin(communityAdmin);
-                JOptionPane.showMessageDialog(this, "Added the Community Admin Successfully");
+                JOptionPane.showMessageDialog(this, "Added the community admin successfully");
               this.clearText();
             }
             else if(role.equals("System Admin")){
@@ -273,7 +418,7 @@ public class AddDoctor extends javax.swing.JPanel {
                 usersList.createUserAccount(txtUsername.getText(),
                             txtPassword.getText(), patient, new SystemAdminRole());
                 UserAccount ua = usersList.getUserAccount(txtUsername.getText());
-                JOptionPane.showMessageDialog(this, "Added the System Admin Successfully");
+                JOptionPane.showMessageDialog(this, "Added the system admin successfully");
                 this.clearText();
 //                SystemAdmin systemAdmin = new SystemAdmin(ua);
 //                systemAdmin.setAddress(txtAddress.getText());
@@ -292,6 +437,10 @@ public class AddDoctor extends javax.swing.JPanel {
                 hospitalAdmin.setPhoneNumber(txtPhoneNumber.getText()); 
                 hospitalAdmin.setName(txtName.getText());
                 hospitalAdmin.setHospital(txtHospitalName.getText());
+                hospitalAdmin.setCommunity((String)CbxCommunity.getSelectedItem());
+                hospitalAdmin.setCity((String)CbxCity.getSelectedItem());
+                hospitalAdmin.setGender((String)CbxGender.getSelectedItem());
+                hospitalAdmin.setAge(Integer.parseInt(txtAge.getText()));
                 system.getHospitalAdminDirectory().addHospitalAdmin(hospitalAdmin);
                 JOptionPane.showMessageDialog(this, "Added the Hospital Admin Successfully");
                 this.clearText();
@@ -323,10 +472,6 @@ public class AddDoctor extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressActionPerformed
 
-    private void CbxGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxGenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CbxGenderActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbxCity;
@@ -339,6 +484,7 @@ public class AddDoctor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -348,7 +494,6 @@ public class AddDoctor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JLabel lblGender;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtHospitalName;
@@ -361,10 +506,14 @@ public class AddDoctor extends javax.swing.JPanel {
 
     private void clearText(){
         JTextField[] textFields = {txtName,txtPassword,txtPasswordConfirmation,
-                    txtHospitalName, txtUsername, txtAddress, txtPhoneNumber};
+                    txtHospitalName, txtUsername, txtAddress, txtPhoneNumber, txtAge};
         for(JTextField pk : textFields){
             pk.setText("");
         }
+        CbxGender.setSelectedIndex(0);
+        CbxCommunity.setSelectedIndex(0);
+        CbxCity.setSelectedIndex(0);
+        comboRole.setSelectedIndex(0);
 //        txtPassword.setText("");
 //        txtPasswordConfirmation.setText("");
         

@@ -12,6 +12,8 @@ import Business.EcoSystem;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -59,10 +61,8 @@ public class ManageDoctors extends javax.swing.JPanel {
         txtHospitalName = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JTextField();
         lbUsername2 = new javax.swing.JLabel();
-        txtpassword = new javax.swing.JPasswordField();
         lbPassword1 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
-        lbPassword = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         CbxGender = new javax.swing.JComboBox<>();
@@ -146,15 +146,7 @@ public class ManageDoctors extends javax.swing.JPanel {
 
         lbUsername2.setText("Phone Number :");
 
-        txtpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpasswordActionPerformed(evt);
-            }
-        });
-
         lbPassword1.setText("Address :");
-
-        lbPassword.setText("Password :");
 
         jLabel10.setText("Community :");
 
@@ -196,7 +188,6 @@ public class ManageDoctors extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbPassword)
                                 .addComponent(lbUsername)
                                 .addComponent(lbPassword1)
                                 .addComponent(lbUsername1)
@@ -204,7 +195,6 @@ public class ManageDoctors extends javax.swing.JPanel {
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,11 +252,7 @@ public class ManageDoctors extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lbUsername)
                                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbPassword)
-                            .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbPassword1))
@@ -323,6 +309,14 @@ public class ManageDoctors extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
+    
+    boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblDeliveryUsers.getSelectedRow();
@@ -331,12 +325,97 @@ public class ManageDoctors extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblDeliveryUsers.getModel();
+        
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        String passreg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+//        At least one upper case English letter, (?=.*?[A-Z])
+//        At least one lower case English letter, (?=.*?[a-z])
+//        At least one digit, (?=.*?[0-9])
+//        At least one special character, (?=.*?[#?!@$%^&*-])
+//        Minimum eight in length .{8,} (with the anchors)
+        
+        String Name = txtName.getText();
+        String UserName = txtUsername.getText();
+        String Gender = (String)CbxGender.getSelectedItem();
+        String Hnum = txtAddress.getText();
+        String comm = (String)CbxCommunity.getSelectedItem();
+        String city = (String)CbxCity.getSelectedItem();
+        int Age;
+        String hospitalName = txtHospitalName.getText();
+        String Phone = txtPhoneNumber.getText();
+        String Hsptname = txtHospitalName.getText();
+        
+        if(!isValidAttribute(Name,Namereg)){
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(UserName,UserNamereg)){
+            JOptionPane.showMessageDialog(this, "Invalid User Name input:" + UserName, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        
+        if(CbxGender.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Gender" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(Hnum,Hnumreg)){
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        
+        if(!isValidAttribute(hospitalName,Namereg)){
+            JOptionPane.showMessageDialog(this, "Invalid Hospital", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCommunity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Community" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select City" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        
+        try{
+          Age = Integer.parseInt(txtAge.getText());
+
+        }catch (NumberFormatException ex){
+
+             
+             JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(Age < 0){
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(!isValidAttribute(Phone,phonereg)){
+           JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
         String name = txtName.getText();
         String userName = txtUsername.getText();
 //        String status = comboStatus.getSelectedItem().toString();
-        String hospitalName = txtHospitalName.getText();
+        
         String phoneNumber = txtPhoneNumber.getText();
-        String password = txtpassword.getText();
+        
         
         ArrayList<Doctor> Doctors = system.getDoctorDirectory().returnDoctorDetails();
         for(Doctor doc: Doctors)
@@ -344,8 +423,6 @@ public class ManageDoctors extends javax.swing.JPanel {
             if(doc.getUa().getUsername().equals(userName))
             {
                doc.setName(name);
-               doc.returnUserAccount().setPassword(password);
-               doc.setUserPassword(password);
                doc.setAddress(txtAddress.getText());
 //               doc.setStatus(status);
                doc.setPhoneNumber(phoneNumber);
@@ -359,8 +436,11 @@ public class ManageDoctors extends javax.swing.JPanel {
             
         }
         JOptionPane.showMessageDialog(this, "Updated the Doctor Details");
-        txtName.setText("");txtUsername.setText("");txtpassword.setText("");txtAddress.setText("");
-        txtHospitalName.setText("");txtPhoneNumber.setText("");txtAge.setText("");
+        txtName.setText("");txtUsername.setText("");
+        txtAddress.setText("");
+        txtHospitalName.setText("");
+        txtPhoneNumber.setText("");
+        txtAge.setText("");
         CbxGender.setSelectedIndex(0);
         CbxCommunity.setSelectedIndex(0);
         CbxCity.setSelectedIndex(0);
@@ -386,8 +466,6 @@ public class ManageDoctors extends javax.swing.JPanel {
         txtHospitalName.setText(selectedDoctor.getHospital());
         txtPhoneNumber.setText("");
         txtPhoneNumber.setText(String.valueOf(selectedDoctor.getPhoneNumber()));
-        txtpassword.setText("");
-        txtpassword.setText(selectedDoctor.getUserPassword());
         txtAddress.setText("");
         txtAddress.setText(selectedDoctor.getAddress());
         txtAge.setText(String.valueOf(selectedDoctor.getAge()));
@@ -429,10 +507,6 @@ public class ManageDoctors extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhoneNumberActionPerformed
 
-    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpasswordActionPerformed
-
     private void CbxCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxCityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CbxCityActionPerformed
@@ -452,7 +526,6 @@ public class ManageDoctors extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbName;
-    private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbPassword1;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JLabel lbUsername;
@@ -465,7 +538,6 @@ public class ManageDoctors extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtUsername;
-    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
     private void populateTable(){
         System.out.println("Inside method to populate Doctor details");

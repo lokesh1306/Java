@@ -5,7 +5,6 @@
  */
 package userinterface.CommunityAdminRole;
 
-import userinterface.SystemAdminWorkArea.*;
 import Business.CommunityAdmin.CommunityAdmin;
 import Business.Customer.Customer;
 import Business.Customer.Hospital;
@@ -28,6 +27,8 @@ import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -124,8 +125,8 @@ public class AddPerson extends javax.swing.JPanel {
         jLabel6.setText("Role :");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 410, -1, -1));
 
-        jLabel7.setText("Hospital Name (Only if role is doctor) :");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 445, -1, -1));
+        jLabel7.setText("Hospital Name (doctor/Hospital Admin) :");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
         add(txtHospitalName, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 442, 124, -1));
 
         btnSubmit.setText("Submit");
@@ -136,7 +137,7 @@ public class AddPerson extends javax.swing.JPanel {
         });
         add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 500, 77, -1));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Select --", "Patient" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-- Select --", "Patient", "Doctor", "Community Admin", "Hospital Admin", "System Admin" }));
         comboRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboRoleActionPerformed(evt);
@@ -196,26 +197,158 @@ public class AddPerson extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
         Component[] comps = this.userProcessContainer.getComponents();
         for(Component comp : comps){
-            if(comp instanceof SystemAdminWorkAreaJPanel){
-                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel= (SystemAdminWorkAreaJPanel) comp;
-                systemAdminWorkAreaJPanel.populateTree();
+            if(comp instanceof CommunityAdminWorkAreaJPanel){
+                CommunityAdminWorkAreaJPanel communityAdminWorkAreaJPanel= (CommunityAdminWorkAreaJPanel) comp;
+                communityAdminWorkAreaJPanel.populateTree();
             }
         }
     }//GEN-LAST:event_btnGoBackActionPerformed
-
+    boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         UserAccountDirectory usersList = this.system.getUserAccountDirectory();
         String role = (String) comboRole.getSelectedItem();
         Patient patient = new Patient(txtName.getText());
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        String passreg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+//        At least one upper case English letter, (?=.*?[A-Z])
+//        At least one lower case English letter, (?=.*?[a-z])
+//        At least one digit, (?=.*?[0-9])
+//        At least one special character, (?=.*?[#?!@$%^&*-])
+//        Minimum eight in length .{8,} (with the anchors)
         
-        boolean userDoNotExists = true;
+        String Name = txtName.getText();
+        String UserName = txtUsername.getText();
+        String password = txtPassword.getText();
+        String confirmPassword = txtPasswordConfirmation.getText();
+        String Gender = (String)CbxGender.getSelectedItem();
+        String Hnum = txtAddress.getText();
+        String comm = (String)CbxCommunity.getSelectedItem();
+        String city = (String)CbxCity.getSelectedItem();
+        int Age;
+        String Phone = txtPhoneNumber.getText();
+        String Hsptname = txtHospitalName.getText();
+        
+        if(!isValidAttribute(Name,Namereg)){
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(UserName,UserNamereg)){
+            JOptionPane.showMessageDialog(this, "Invalid User Name input:" + UserName, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(password,passreg)){
+            JOptionPane.showMessageDialog(this, "Invalid password", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!password.equals(confirmPassword )){
+            JOptionPane.showMessageDialog(this, "Password mismatch","Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxGender.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Gender" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(Hnum,Hnumreg)){
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCommunity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Community" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select City" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(comboRole.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select user Role " ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        try{
+          Age = Integer.parseInt(txtAge.getText());
+
+        }catch (NumberFormatException ex){
+
+             
+             JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(Age < 0){
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(!isValidAttribute(Phone,phonereg)){
+           JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if("Doctor".equals(role) || "Hospital Admin".equals(role)){
+            if(Hsptname.length() == 0){
+                JOptionPane.showMessageDialog(this, "Hospital cannot be empty for doctor field" , "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            else{
+                boolean e = false;
+                for(Hospital H:system.getHospitalDirectory().returnHospitalDetails()){
+                if(H.getName().equals(Hsptname)){
+                    e = true;
+                    break;
+                }
+               
+                }
+                if(!e){
+                    JOptionPane.showMessageDialog(this, "Given Hospital does not exist in the directory" , "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        else{
+            if(Hsptname.length() > 0){
+                JOptionPane.showMessageDialog(this, "Hospital cannot be given for roles other than doctor", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        boolean usernameExists = false;
         ArrayList<UserAccount> users = usersList.getUserAccountList();
         for(UserAccount ua : users)
         {
-            if(ua.getUsername().equals(txtUsername.getText()))
-                userDoNotExists = false;
+            if(ua.getUsername().equals(txtUsername.getText())){
+                usernameExists = true;
+            }
+                
+             
         }
+        if(usernameExists){
+            JOptionPane.showMessageDialog(this, "user name already exists in the directory", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+                return;
+        }
+        
         if(txtPassword.getText().equals(txtPasswordConfirmation.getText()))
         {
             if(role.equals("Patient")){

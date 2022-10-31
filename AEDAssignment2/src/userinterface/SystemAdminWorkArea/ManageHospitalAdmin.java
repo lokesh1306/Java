@@ -9,6 +9,8 @@ import Business.EcoSystem;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageHospitalAdmin extends javax.swing.JPanel {
 
-    
     JPanel userProcessContainer;
     EcoSystem system;
+
     /**
      * Creates new form java
      */
@@ -56,8 +58,6 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
         lbRestaurant = new javax.swing.JLabel();
         txtPhoneNumber = new javax.swing.JTextField();
         btnView = new javax.swing.JButton();
-        txtpassword = new javax.swing.JPasswordField();
-        lbPassword2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         CbxGender = new javax.swing.JComboBox<>();
@@ -140,14 +140,6 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
             }
         });
 
-        txtpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpasswordActionPerformed(evt);
-            }
-        });
-
-        lbPassword2.setText("Password :");
-
         jLabel10.setText("Community :");
 
         jLabel11.setText("City :");
@@ -183,29 +175,24 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(lbPassword1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lbRestaurant, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lbName, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lbPassword, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(10, 10, 10)
-                                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lbPassword2)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbPassword1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lbRestaurant, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lbName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lbPassword, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(74, 74, 74)
                                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,11 +243,7 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPassword2)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbPassword)
                     .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -300,18 +283,18 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblHAdmin.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHAdmin.getModel();
-        HospitalAdmin selectedHospitalAdmin = (HospitalAdmin)model.getValueAt(selectedRowIndex, 0);
+        HospitalAdmin selectedHospitalAdmin = (HospitalAdmin) model.getValueAt(selectedRowIndex, 0);
         // First delete the customer from employee
 
         // And then delete the userAccount
         this.system.getUserAccountDirectory().deleteUserAccount(
-            this.system.getHospitalAdminDirectory().returnHospitalAdminDetails().
-            get(selectedRowIndex).returnUserAccount()
+                this.system.getHospitalAdminDirectory().returnHospitalAdminDetails().
+                        get(selectedRowIndex).returnUserAccount()
         );
         // finally delete the user from customer directory
         this.system.getHospitalAdminDirectory().deleteHospitalAdmin(selectedHospitalAdmin);
@@ -325,31 +308,104 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddressActionPerformed
 
+    boolean isValidAttribute(String attribute, String reg) {
+
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblHAdmin.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHAdmin.getModel();
+
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        String passreg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+//        At least one upper case English letter, (?=.*?[A-Z])
+//        At least one lower case English letter, (?=.*?[a-z])
+//        At least one digit, (?=.*?[0-9])
+//        At least one special character, (?=.*?[#?!@$%^&*-])
+//        Minimum eight in length .{8,} (with the anchors)
+
+        String Name = txtName.getText();        
+        String Gender = (String) CbxGender.getSelectedItem();
+        String Hnum = txtAddress.getText();
+        String comm = (String) CbxCommunity.getSelectedItem();
+        String city = (String) CbxCity.getSelectedItem();
+        int Age;
+        String Phone = txtPhoneNumber.getText();
+
+        if (!isValidAttribute(Name, Namereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+
+        if (CbxGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select Gender", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Hnum, Hnumreg)) {
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        
+        if (CbxCommunity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select Community", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CbxCity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select City", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            Age = Integer.parseInt(txtAge.getText());
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Age < 0) {
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Phone, phonereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         String userName = txtUserName.getText();
-        String Name = txtName.getText();
+//        String Name = txtName.getText();
 
         String phoneNumber = txtPhoneNumber.getText();
         String address = txtAddress.getText();
-        String password = txtpassword.getText();
-
 
         ArrayList<HospitalAdmin> Hads = system.getHospitalAdminDirectory().returnHospitalAdminDetails();
-        for(HospitalAdmin h: Hads)
-        {
-            if(h.getUserName().equals(userName))
-            {
+        for (HospitalAdmin h : Hads) {
+            if (h.getUserName().equals(userName)) {
 
                 h.setName(txtName.getText());
-                h.returnUserAccount().setPassword(password);
-                h.setUserPassword(password);
+//                h.returnUserAccount().setPassword(password);
+//                h.setUserPassword(password);
                 h.setAge(Integer.parseInt(txtAge.getText()));
                 h.setGender(String.valueOf(CbxGender.getSelectedItem()));
                 h.setCommunity(String.valueOf(CbxCommunity.getSelectedItem()));
@@ -363,8 +419,11 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Updated the details successfully");
-        txtUserName.setText("");txtName.setText("");txtpassword.setText("");txtAge.setText("");
-        txtAddress.setText("");txtPhoneNumber.setText("");
+        txtUserName.setText("");
+        txtName.setText("");
+        txtAge.setText("");
+        txtAddress.setText("");
+        txtPhoneNumber.setText("");
         CbxGender.setSelectedIndex(0);
         CbxCommunity.setSelectedIndex(0);
         CbxCity.setSelectedIndex(0);
@@ -377,9 +436,9 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
         Component[] comps = this.userProcessContainer.getComponents();
-        for(Component comp : comps){
-            if(comp instanceof SystemAdminWorkAreaJPanel){
-                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel= (SystemAdminWorkAreaJPanel) comp;
+        for (Component comp : comps) {
+            if (comp instanceof SystemAdminWorkAreaJPanel) {
+                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel = (SystemAdminWorkAreaJPanel) comp;
                 systemAdminWorkAreaJPanel.populateTree();
             }
         }
@@ -392,12 +451,12 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblHAdmin.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to View");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHAdmin.getModel();
-        HospitalAdmin selectedHospitalAdmin = (HospitalAdmin)model.getValueAt(selectedRowIndex, 0);
+        HospitalAdmin selectedHospitalAdmin = (HospitalAdmin) model.getValueAt(selectedRowIndex, 0);
         txtUserName.setText("");
         txtUserName.setText(selectedHospitalAdmin.getUserName());
 
@@ -405,9 +464,7 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
         txtName.setText(selectedHospitalAdmin.getName());
 
 //        HbxHospital.setSelectedItem(selectedHospitalAdmin.getHospital());
-       txtpassword.setText("");
-        txtpassword.setText(selectedHospitalAdmin.getUserPassword());
-
+        
         txtAddress.setText("");
         txtAddress.setText(selectedHospitalAdmin.getAddress());
         txtPhoneNumber.setText("");
@@ -421,10 +478,6 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-
-    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpasswordActionPerformed
 
     private void CbxCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxCityActionPerformed
         // TODO add your handling code here:
@@ -447,7 +500,6 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbPassword1;
-    private javax.swing.JLabel lbPassword2;
     private javax.swing.JLabel lbRestaurant;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JTable tblHAdmin;
@@ -456,17 +508,16 @@ public class ManageHospitalAdmin extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtUserName;
-    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
 
-    private void populateTable(){
+    private void populateTable() {
         System.out.println("Inside method to populate Hospital Admin details table");
         DefaultTableModel model = (DefaultTableModel) tblHAdmin.getModel();
         model.setRowCount(0);
         System.out.println(this.system.getHospitalAdminDirectory().returnHospitalAdminDetails());
-        
+
         System.out.println(800);
-        for(HospitalAdmin Had : this.system.getHospitalAdminDirectory().returnHospitalAdminDetails()){
+        for (HospitalAdmin Had : this.system.getHospitalAdminDirectory().returnHospitalAdminDetails()) {
             System.out.println(Had);
             Object[] row = new Object[8];
             row[0] = Had;

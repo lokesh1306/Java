@@ -13,6 +13,8 @@ import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +30,7 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem system;
-    
+
     public ManageHospitalDetails(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.system = system;
@@ -62,8 +64,6 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
         txtCity = new javax.swing.JTextField();
         lbPassword1 = new javax.swing.JLabel();
         txtCommunity = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -73,13 +73,13 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
 
         tblHospital.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hospital Name", "Hospital ID", "Address", "Phone Number", "City", "Community"
+                "Hospital Name", "Address", "Phone Number", "City", "Community"
             }
         ));
         jScrollPane1.setViewportView(tblHospital);
@@ -124,8 +124,11 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
             }
         });
 
+        txtHospitalName.setEditable(false);
+
         lbRestaurant.setText("Hospital Name :");
 
+        txtCity.setEditable(false);
         txtCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCityActionPerformed(evt);
@@ -134,17 +137,10 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
 
         lbPassword1.setText("Community:");
 
+        txtCommunity.setEditable(false);
         txtCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCommunityActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Hospital ID :");
-
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
             }
         });
 
@@ -159,33 +155,27 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(201, 201, 201)
                                 .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(245, 245, 245)
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(226, 226, 226)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lbName)
-                                                .addComponent(lbRestaurant)
-                                                .addComponent(lbUsername)
-                                                .addComponent(lbPassword))
-                                            .addGap(1, 1, 1))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addContainerGap()
-                                            .addComponent(lbPassword1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtHospitalAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtHospitalPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnSubmit)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(226, 226, 226)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lbName)
+                                            .addComponent(lbRestaurant)
+                                            .addComponent(lbUsername)
+                                            .addComponent(lbPassword))
+                                        .addGap(1, 1, 1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(lbPassword1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHospitalAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtHospitalPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSubmit))))
                         .addGap(54, 54, 54))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(66, 66, 66)
@@ -204,11 +194,7 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(lbTitle)
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbRestaurant))
@@ -252,47 +238,78 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
         Component[] comps = this.userProcessContainer.getComponents();
-        for(Component comp : comps){
-            if(comp instanceof SystemAdminWorkAreaJPanel){
-                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel= (SystemAdminWorkAreaJPanel) comp;
+        for (Component comp : comps) {
+            if (comp instanceof SystemAdminWorkAreaJPanel) {
+                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel = (SystemAdminWorkAreaJPanel) comp;
                 systemAdminWorkAreaJPanel.populateTree();
             }
         }
     }//GEN-LAST:event_btnBackActionPerformed
+    
+    
+    boolean isValidAttribute(String attribute, String reg) {
 
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblHospital.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHospital.getModel();
+
+        String Namereg = "^[\\p{L} .'-]+$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+
+        String Hnum = txtHospitalAddress.getText();
+        String Phone = txtHospitalPhoneNumber.getText();
+
+        
+        if (!isValidAttribute(Hnum, Hnumreg)) {
+            JOptionPane.showMessageDialog(this, "Invalid Hospital Address ", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!isValidAttribute(Phone, phonereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone number", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         String hospitalname = txtHospitalName.getText();
         String hospitaladdress = txtHospitalAddress.getText();
         String hospitalphonenumber = txtHospitalPhoneNumber.getText();
         String city = txtCity.getText();
         String community = txtCommunity.getText();
-        
+
         ArrayList<Hospital> hosp = system.getHospitalDirectory().returnHospitalDetails();
-        for(Hospital h: hosp)
-        {
-            if(h.getID().equals(txtID.getText()));
+        for (Hospital h : hosp) {
+            if (h.getName().equals(txtHospitalName.getText()));
             {
-               h.setID(txtID.getText());
-               h.setName(txtHospitalName.getText());
-               h.setAddress(txtHospitalAddress.getText());
-               h.setPhoneNumber(txtHospitalPhoneNumber.getText());
-               h.setCity(txtCity.getText());
-               h.setCity(txtCommunity.getText());
-               break;
+                
+               
+                h.setAddress(txtHospitalAddress.getText());
+                h.setPhoneNumber(txtHospitalPhoneNumber.getText());
+                h.setCity(txtCity.getText());
+                h.setCity(txtCommunity.getText());
+                break;
             }
-            
+
         }
         system.setHospitalDirectory(hosp);
         JOptionPane.showMessageDialog(this, "Updated the details successfully");
-        txtHospitalAddress.setText("");txtHospitalPhoneNumber.setText("");txtHospitalName.setText("");
-        txtCommunity.setText("");txtCity.setText("");
+        txtHospitalAddress.setText("");
+        txtHospitalPhoneNumber.setText("");
+        txtHospitalName.setText("");
+        txtCommunity.setText("");
+        txtCity.setText("");
         populateTable();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -306,15 +323,14 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-          int selectedRowIndex = tblHospital.getSelectedRow();
-        if(selectedRowIndex < 0){
+        int selectedRowIndex = tblHospital.getSelectedRow();
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to View");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHospital.getModel();
-        Hospital selectedHospital = (Hospital)model.getValueAt(selectedRowIndex, 0);
-        txtID.setText("");
-        txtID.setText(selectedHospital.getID());
+        Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
+        
         txtHospitalName.setText("");
         txtHospitalName.setText(selectedHospital.getName());
         txtHospitalAddress.setText("");
@@ -330,32 +346,28 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblHospital.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblHospital.getModel();
-        Hospital selectedHospital = (Hospital)model.getValueAt(selectedRowIndex, 0);
+        Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
         // First delete the customer from employee
         this.system.getEmployeeDirectory().deleteEmployee(selectedHospital.getName());
         // And thne delete the userAccount
- //       this.system.getUserAccountDirectory().deleteUserAccount(
+        //       this.system.getUserAccountDirectory().deleteUserAccount(
 //                this.system.getRestaurantDirectory().returnAllRestaurants().
 //                        get(selectedRowIndex).returnUserAcc()
 //        );
 //        // finally delete the user from customer directory
         this.system.getHospitalDirectory().deleteHospital(selectedHospital);
-        
+
         JOptionPane.showMessageDialog(this, "Deleted the restaurant Successfully");
-        for(Hospital hs : this.system.getHospitalDirectory().returnHospitalDetails()){
+        for (Hospital hs : this.system.getHospitalDirectory().returnHospitalDetails()) {
             System.out.println(hs.getName());
         }
         this.populateTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -363,7 +375,6 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnView;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPassword;
@@ -377,23 +388,21 @@ public class ManageHospitalDetails extends javax.swing.JPanel {
     private javax.swing.JTextField txtHospitalAddress;
     private javax.swing.JTextField txtHospitalName;
     private javax.swing.JTextField txtHospitalPhoneNumber;
-    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 
-    private void populateTable(){
+    private void populateTable() {
         System.out.println("Inside method to populate Restaurant details table");
         DefaultTableModel model = (DefaultTableModel) tblHospital.getModel();
         model.setRowCount(0);
 
-        for(Hospital rest : this.system.getHospitalDirectory().returnHospitalDetails()){
+        for (Hospital rest : this.system.getHospitalDirectory().returnHospitalDetails()) {
             System.out.println(rest);
-            Object[] row = new Object[6];
-            row[0] = rest;
-            row[1] = rest.getID();
-            row[2] = rest.getAddress();
-            row[3] = rest.getPhoneNumber();
-            row[4] = rest.getCity();
-            row[5] = rest.getCommunity();
+            Object[] row = new Object[5];
+            row[0] = rest;            
+            row[1] = rest.getAddress();
+            row[2] = rest.getPhoneNumber();
+            row[3] = rest.getCity();
+            row[4] = rest.getCommunity();
             model.addRow(row);
         }
     }

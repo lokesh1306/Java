@@ -7,12 +7,15 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.CommunityAdmin.CommunityAdmin;
 import Business.Customer.Customer;
+import Business.Customer.Hospital;
 import Business.Doctor.Doctor;
 import Business.EcoSystem;
 import Business.Restaurant.Restaurant;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -62,8 +65,6 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
         lbPassword1 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         CbxCommunity = new javax.swing.JComboBox<>();
-        txtpassword = new javax.swing.JPasswordField();
-        lbPassword2 = new javax.swing.JLabel();
         lbPassword3 = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -123,6 +124,8 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
 
         lbName.setText("Username :");
         add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, -1, -1));
+
+        txtUserName.setEditable(false);
         add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 159, -1));
 
         lbUsername.setText("Community :");
@@ -161,10 +164,6 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
         CbxCommunity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Select --", "Mission Hill", "Jamaica Plain", "Huntington Avenue", "Bolyston" }));
         CbxCommunity.setPreferredSize(new java.awt.Dimension(124, 23));
         add(CbxCommunity, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, 159, -1));
-        add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 159, -1));
-
-        lbPassword2.setText("Password :");
-        add(lbPassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
 
         lbPassword3.setText("Age :");
         add(lbPassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, -1, -1));
@@ -204,6 +203,13 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
+    boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblRestaurants.getSelectedRow();
@@ -212,8 +218,85 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblRestaurants.getModel();
-        String userName = txtUserName.getText();
+        
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        String passreg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+//        At least one upper case English letter, (?=.*?[A-Z])
+//        At least one lower case English letter, (?=.*?[a-z])
+//        At least one digit, (?=.*?[0-9])
+//        At least one special character, (?=.*?[#?!@$%^&*-])
+//        Minimum eight in length .{8,} (with the anchors)
+        
         String Name = txtName.getText();
+        String UserName = txtUserName.getText();
+        
+      
+        String Gender = (String)CbxGender.getSelectedItem();
+        String Hnum = txtAddress.getText();
+        String comm = (String)CbxCommunity.getSelectedItem();
+        String city = (String)CbxCity.getSelectedItem();
+        int Age;
+        String Phone = txtPhoneNumber.getText();
+        String Hsptname = txtName.getText();
+        
+        if(!isValidAttribute(Name,Namereg)){
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+       
+        
+        if(CbxGender.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Gender" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(!isValidAttribute(Hnum,Hnumreg)){
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCommunity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select Community" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        if(CbxCity.getSelectedIndex() == 0){
+                        JOptionPane.showMessageDialog(this, "Please select City" ,"Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+       
+        try{
+          Age = Integer.parseInt(txtAge.getText());
+
+        }catch (NumberFormatException ex){
+
+             
+             JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(Age < 0){
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+        JOptionPane.WARNING_MESSAGE);
+             return;
+        }
+        if(!isValidAttribute(Phone,phonereg)){
+           JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+        JOptionPane.WARNING_MESSAGE);
+           return;
+        }
+        
+        
+        
+        
+        
+        
+        String userName = txtUserName.getText();
         
         String phoneNumber = txtPhoneNumber.getText();
         String address = txtAddress.getText();
@@ -236,7 +319,8 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
         
         JOptionPane.showMessageDialog(this, "Updated the details successfully");
         txtUserName.setText("");txtName.setText("");
-        txtAddress.setText("");txtPhoneNumber.setText("");txtpassword.setText("");txtAge.setText("");
+        txtAddress.setText("");txtPhoneNumber.setText("");
+        txtAge.setText("");
         CbxGender.setSelectedIndex(0);
         CbxCommunity.setSelectedIndex(0);
         CbxCity.setSelectedIndex(0);
@@ -266,8 +350,7 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
         txtName.setText("");
         txtName.setText(selectedCommunityAdmin.getName());
         
-        txtpassword.setText("");
-        txtpassword.setText(selectedCommunityAdmin.getUserPassword());
+        
         
         CbxCommunity.setSelectedItem(selectedCommunityAdmin.getCommunity());
         txtName.setText(selectedCommunityAdmin.getName());
@@ -324,7 +407,6 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbPassword1;
-    private javax.swing.JLabel lbPassword2;
     private javax.swing.JLabel lbPassword3;
     private javax.swing.JLabel lbRestaurant;
     private javax.swing.JLabel lbTitle;
@@ -335,7 +417,6 @@ public class ManageCommunityAdmins extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtUserName;
-    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
 
     private void populateTable(){

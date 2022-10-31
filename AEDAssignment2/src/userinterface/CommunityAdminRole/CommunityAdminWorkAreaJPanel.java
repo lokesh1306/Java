@@ -35,6 +35,14 @@ public class CommunityAdminWorkAreaJPanel extends javax.swing.JPanel {
         communityAdminDirectory = system.getCommunityAdminDirectory();
         this.cad = communityAdminDirectory.getCommunityAdmins(ua.getUsername());
         lbUserName.setText(this.cad.getName());
+        populateTree();
+    }
+    
+    public void populateTree(){
+//        DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
+       // Add the code for draw your system structure shown by JTree
+       
+//        model.reload();
     }
     
     /** This method is called from within the constructor to

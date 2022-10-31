@@ -5,13 +5,16 @@
  */
 package userinterface.CommunityAdminRole;
 
-import userinterface.SystemAdminWorkArea.*;
 import Business.Customer.Customer;
+import Business.Customer.Hospital;
 import Business.Customer.Patients;
 import Business.EcoSystem;
+import Business.Employee.Patient;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +30,7 @@ public class ManagePersonDetails extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem system;
-    
+
     public ManagePersonDetails(JPanel userProcessContainer, EcoSystem system) {
         initComponents();
         this.system = system;
@@ -51,12 +54,10 @@ public class ManagePersonDetails extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
-        lbPassword = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lbUsername = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
-        txtpassword = new javax.swing.JPasswordField();
         lbPassword1 = new javax.swing.JLabel();
         lbPassword2 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -74,7 +75,7 @@ public class ManagePersonDetails extends javax.swing.JPanel {
 
         lbTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTitle.setText("Manage Person Details");
+        lbTitle.setText("Manage Patient Details");
 
         tblPatientDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,8 +117,6 @@ public class ManagePersonDetails extends javax.swing.JPanel {
                 btnSubmitActionPerformed(evt);
             }
         });
-
-        lbPassword.setText("Password :");
 
         lbName.setText("Name :");
 
@@ -186,7 +185,6 @@ public class ManagePersonDetails extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lbUsername)
                             .addComponent(lbName)
-                            .addComponent(lbPassword)
                             .addComponent(lbPassword1)
                             .addComponent(lbPassword2)
                             .addComponent(lbPassword3))
@@ -195,7 +193,6 @@ public class ManagePersonDetails extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtpassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -226,11 +223,7 @@ public class ManagePersonDetails extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbUsername))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPassword1)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -275,48 +268,123 @@ public class ManagePersonDetails extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
         Component[] comps = this.userProcessContainer.getComponents();
-        for(Component comp : comps){
-            if(comp instanceof SystemAdminWorkAreaJPanel){
-                SystemAdminWorkAreaJPanel systemAdminWorkAreaJPanel= (SystemAdminWorkAreaJPanel) comp;
-                systemAdminWorkAreaJPanel.populateTree();
+        for (Component comp : comps) {
+            if(comp instanceof CommunityAdminWorkAreaJPanel){
+                CommunityAdminWorkAreaJPanel communityAdminWorkAreaJPanel= (CommunityAdminWorkAreaJPanel) comp;
+                communityAdminWorkAreaJPanel.populateTree();
             }
         }
     }//GEN-LAST:event_btnBackActionPerformed
 
+    boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblPatientDetails.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblPatientDetails.getModel();
+
+        String Namereg = "^[\\p{L} .'-]+$";
+        String UserNamereg = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+
         String name = txtName.getText();
         String userName = txtUsername.getText();
-        String password = txtpassword.getText();
+//        String password = txtpassword.getText();
 
+        String Name = txtName.getText();
+        String UserName = txtUsername.getText();
+        String Hnum = txtAddress.getText();
+        String comm = (String) CbxCommunity.getSelectedItem();
+        String city = (String) CbxCity.getSelectedItem();
+        int Age;
+        String Phone = txtPhoneNumber.getText();
+
+        if (!isValidAttribute(Name, Namereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(UserName, UserNamereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid User Name input:" + UserName, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         
+        if (CbxGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select Gender", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Hnum, Hnumreg)) {
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CbxCommunity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select Community", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CbxCity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select City", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try {
+            Age = Integer.parseInt(txtAge.getText());
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age is not a number\"", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Age < 0) {
+            JOptionPane.showMessageDialog(this, "\"Invalid input : Age cannot be negative\"", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Phone, phonereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+
         ArrayList<Patients> pats = system.getPatientsDirectory().returnPatientsDetails();
-        for(Patients p: pats)
-        {
-            if(p.getUserName().equals(userName))
-            {
-               p.returnUserAccount().setPassword(password);
-               p.setUserPassword(password);
-               p.setPhoneNumber(txtPhoneNumber.getText());
-               p.setAddress(txtAddress.getText());
-               p.setName(name);
-               p.setAge(Integer.parseInt(txtAge.getText()));
-               p.setGender(String.valueOf(CbxGender.getSelectedItem()));
-               p.setCommunity(String.valueOf(CbxCommunity.getSelectedItem()));
-               p.setCity(String.valueOf(CbxCity.getSelectedItem()));
-               break;
+        for (Patients p : pats) {
+            if (p.getUserName().equals(userName)) {
+//               p.returnUserAccount().setPassword(password);
+//               p.setUserPassword(password);
+                p.setPhoneNumber(txtPhoneNumber.getText());
+                p.setAddress(txtAddress.getText());
+                p.setName(name);
+                p.setAge(Integer.parseInt(txtAge.getText()));
+                p.setGender(String.valueOf(CbxGender.getSelectedItem()));
+                p.setCommunity(String.valueOf(CbxCommunity.getSelectedItem()));
+                p.setCity(String.valueOf(CbxCity.getSelectedItem()));
+                break;
             }
-            
+
         }
         JOptionPane.showMessageDialog(this, "Details Updated Successfully");
-        txtName.setText("");txtUsername.setText("");txtpassword.setText("");
-        txtAddress.setText("");txtPhoneNumber.setText("");txtAge.setText("");
+//        txtName.setText("");txtUsername.setText("");txtpassword.setText("");
+        txtName.setText("");
+        txtUsername.setText("");
+        txtAddress.setText("");
+        txtPhoneNumber.setText("");
+        txtAge.setText("");
         CbxGender.setSelectedIndex(0);
         CbxCommunity.setSelectedIndex(0);
         CbxCity.setSelectedIndex(0);
@@ -326,18 +394,18 @@ public class ManagePersonDetails extends javax.swing.JPanel {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblPatientDetails.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to View");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblPatientDetails.getModel();
-        Patients selectedPatients = (Patients)model.getValueAt(selectedRowIndex, 0);
+        Patients selectedPatients = (Patients) model.getValueAt(selectedRowIndex, 0);
         txtName.setText("");
         txtName.setText(selectedPatients.getName());
         txtUsername.setText("");
         txtUsername.setText(selectedPatients.getUserName());
-        txtpassword.setText("");
-        txtpassword.setText(selectedPatients.getUserPassword());
+//        txtpassword.setText("");
+//        txtpassword.setText(selectedPatients.getUserPassword());
         txtAddress.setText("");
         txtAddress.setText(selectedPatients.getAddress());
         txtPhoneNumber.setText("");
@@ -352,14 +420,14 @@ public class ManagePersonDetails extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selectedRowIndex = tblPatientDetails.getSelectedRow();
-        if(selectedRowIndex < 0){
+        if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete");
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tblPatientDetails.getModel();
-        Patients selectedPatients = (Patients)model.getValueAt(selectedRowIndex, 0);
+        Patients selectedPatients = (Patients) model.getValueAt(selectedRowIndex, 0);
         // First delete the customer from employee
-        
+
         // And thne delete the userAccount
         this.system.getUserAccountDirectory().deleteUserAccount(
                 this.system.getPatientsDirectory().returnPatientsDetails().
@@ -367,9 +435,9 @@ public class ManagePersonDetails extends javax.swing.JPanel {
         );
         // finally delete the user from customer directory
         this.system.getPatientsDirectory().deletePatients(selectedPatients);
-        
+
         JOptionPane.showMessageDialog(this, "Deleted the patient Successfully");
-        for(Patients ck : this.system.getPatientsDirectory().returnPatientsDetails()){
+        for (Patients ck : this.system.getPatientsDirectory().returnPatientsDetails()) {
             System.out.println(ck.getName());
         }
         this.populateTable();
@@ -393,7 +461,6 @@ public class ManagePersonDetails extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbName;
-    private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbPassword1;
     private javax.swing.JLabel lbPassword2;
     private javax.swing.JLabel lbPassword3;
@@ -405,15 +472,14 @@ public class ManagePersonDetails extends javax.swing.JPanel {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtUsername;
-    private javax.swing.JPasswordField txtpassword;
     // End of variables declaration//GEN-END:variables
 
-    private void populateTable(){
+    private void populateTable() {
 //        System.out.println("Inside method to populate Customer table");
         DefaultTableModel model = (DefaultTableModel) tblPatientDetails.getModel();
         model.setRowCount(0);
 
-        for(Patients cust : this.system.getPatientsDirectory().returnPatientsDetails()){
+        for (Patients cust : this.system.getPatientsDirectory().returnPatientsDetails()) {
             System.out.println(cust);
             Object[] row = new Object[8];
             row[0] = cust;

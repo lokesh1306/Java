@@ -26,7 +26,15 @@ public class HospitalAdminWorkAreaNewJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.system = system;
-//        lbUserName.setText(account.getUsername());
+        populateTree();
+        
+    }
+    
+    public void populateTree(){
+//        DefaultTreeModel model=(DefaultTreeModel)jTree.getModel();
+       // Add the code for draw your system structure shown by JTree
+       
+//        model.reload();
     }
 
     /**

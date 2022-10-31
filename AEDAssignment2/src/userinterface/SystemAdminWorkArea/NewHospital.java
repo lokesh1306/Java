@@ -21,6 +21,8 @@ import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,8 +65,6 @@ public class NewHospital extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
         txtPhoneNumber = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 255, 255));
 
@@ -115,8 +115,6 @@ public class NewHospital extends javax.swing.JPanel {
 
         txtPhoneNumber.setPreferredSize(new java.awt.Dimension(124, 23));
 
-        jLabel3.setText("ID :");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,14 +131,12 @@ public class NewHospital extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(CbxCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,11 +150,7 @@ public class NewHospital extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -203,12 +195,56 @@ public class NewHospital extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnGoBackActionPerformed
-
+ boolean isValidAttribute(String attribute, String reg){
+        
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(attribute);
+        return mat.matches();
+    }
+    
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        
         UserAccountDirectory usersList = this.system.getUserAccountDirectory();
         Hospital hospital = new Hospital();
-        hospital.setID(txtID.getText());
+        
+        String Namereg = "^[\\p{L} .'-]+$";
+        String Hnumreg = "^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$|^\\d{1,6}\\040([A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,}\\040[A-Z]{1}[a-z]{1,})$";
+        String phonereg = "[0-9]{10}";
+        
+        String Name = txtName.getText();
+        String Hnum = txtAddress.getText();
+        String Phone = txtPhoneNumber.getText();
+        
+        if (!isValidAttribute(Name, Namereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid name input:" + Name, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Hnum, Hnumreg)) {
+            JOptionPane.showMessageDialog(this, "Invalid House number input:" + Hnum, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CbxCommunity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select Community", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CbxCity.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select City", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!isValidAttribute(Phone, phonereg)) {
+            JOptionPane.showMessageDialog(this, "Invalid phone input:" + Phone, "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        
+        
         hospital.setName(txtName.getText());
         hospital.setAddress(txtAddress.getText());
         hospital.setPhoneNumber(txtPhoneNumber.getText());
@@ -219,6 +255,13 @@ public class NewHospital extends javax.swing.JPanel {
 
         system.getHospitalDirectory().addHospital(hospital);
         JOptionPane.showMessageDialog(this, "Added the new hospital successfully");
+        txtName.setText("");
+        
+        txtAddress.setText("");
+        txtPhoneNumber.setText("");
+        
+        CbxCommunity.setSelectedIndex(0);
+        CbxCity.setSelectedIndex(0);
         this.clearText();
 
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -237,16 +280,14 @@ public class NewHospital extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
     private void clearText(){
-        JTextField[] textFields = {txtID,txtName,txtAddress, txtPhoneNumber};
+        JTextField[] textFields = {txtName,txtAddress, txtPhoneNumber};
         for(JTextField pk : textFields){
             pk.setText("");
         }
